@@ -1,2 +1,2 @@
 # excnrates
-Simple exchange rate application with spring boot and ratesapi.io
+Simple exchange rates application with spring boot and ratesapi.io
