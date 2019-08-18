@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +29,8 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class ExcnRatesController {
 	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	RestTemplate restTemplate;
 	
@@ -47,7 +51,7 @@ public class ExcnRatesController {
 				rates = restTemplate.exchange(AppConstants.RATESAPI_IO_URL+"/latest?base="+currencyCode+"&symbols=IDR",HttpMethod.GET,entity, ExchangeRate.class);
 				
 			} catch (Exception e) {
-				System.out.println(currencyCode + ":"+e.getMessage());
+				logger.error(e.getMessage());
 			}
 			BigDecimal rate = rates.getBody().getRates().get(AppConstants.MY_CURRENCY);
 			if(rate !=null) {
