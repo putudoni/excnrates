@@ -2,7 +2,6 @@ package id.co.pnwd.excnrates;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,10 +33,7 @@ public class ExcnRatesController {
 	
 	@GetMapping("/rates")
 	public String index(Model model) {
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		headers.add("user-agent",AppConstants.USER_AGENT);
-		HttpEntity<String> entity = new HttpEntity<String>(headers);
+		HttpEntity<String> entity = ExcnratesUtil.getHttpEntity();
 		ResponseEntity<ExchangeRate> rates = null;
 		List<ResultApi> result = new ArrayList<>();
 		Countries countries = new Countries();
