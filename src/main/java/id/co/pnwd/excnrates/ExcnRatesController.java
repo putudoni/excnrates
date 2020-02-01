@@ -43,17 +43,18 @@ public class ExcnRatesController {
 			String currencyCode = (String) entry.getValue();
 			try {
 				rates = restTemplate.exchange(AppConstants.RATESAPI_IO_URL+"/latest?base="+currencyCode+"&symbols=IDR",HttpMethod.GET,entity, ExchangeRate.class);
-				
+				if(rates != null) {
+					BigDecimal rate = rates.getBody().getRates().get(AppConstants.MY_CURRENCY);
+					if(rate !=null) {
+						resultApi = new ResultApi();
+						resultApi.setCountryCode(countryCode);
+						resultApi.setCurrencyCode(currencyCode);
+						resultApi.setRate(rate.setScale(0, BigDecimal.ROUND_HALF_UP));
+						result.add(resultApi);
+					}
+				}
 			} catch (Exception e) {
 				logger.error(e.getMessage());
-			}
-			BigDecimal rate = rates.getBody().getRates().get(AppConstants.MY_CURRENCY);
-			if(rate !=null) {
-				resultApi = new ResultApi();
-				resultApi.setCountryCode(countryCode);
-				resultApi.setCurrencyCode(currencyCode);
-				resultApi.setRate(rate.setScale(0, BigDecimal.ROUND_HALF_UP));
-				result.add(resultApi);
 			}
 		}
 		model.addAttribute("result",result);
