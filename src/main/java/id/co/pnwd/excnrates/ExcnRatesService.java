@@ -11,6 +11,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ public class ExcnRatesService {
 	@Autowired
 	RestTemplate restTemplate;
 	
+	@Cacheable("rates")
 	public List<ResultApi> getRates() {
 		List<ResultApi> result = new ArrayList<>();
 		HttpEntity<String> entity = ExcnratesUtil.getHttpEntity();
