@@ -31,6 +31,9 @@ public class ExcnRatesController {
 	@Autowired
 	RestTemplate restTemplate;
 	
+	@Autowired
+	private ExcnRatesService excnRatesService;
+	
 	@GetMapping("/rates")
 	public String index(Model model) {
 		HttpEntity<String> entity = ExcnratesUtil.getHttpEntity();
