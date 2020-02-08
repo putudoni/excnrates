@@ -3,6 +3,8 @@
  */
 package id.co.pnwd.excnrates;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,4 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExcnRatesService {
 
+	public List<ResultApi> getRates() {
+		return null;
+	}
+	
 }
